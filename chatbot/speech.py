@@ -5,6 +5,7 @@ import tflearn
 import json
 import numpy as np
 import random
+import speech_recognition as sr 
 
 stemmer = LancasterStemmer()
  
@@ -90,25 +91,45 @@ def chat():
     print('Hello ! (type quit to exit chatbot)')
 
     while True:
-        inp = input()
 
-        if inp.lower() == 'quit':
-            break
-        
-        result = model.predict([bag_of_words(inp, words)])[0]
-        result_index = np.argmax(result)
+        r = sr.Recognizer()
 
-        tag = labels[result_index]
+        with sr.Microphone() as source:
+            print('Speak now ...')
 
-        for tg in data['vocabs']:
-            if tg['tag'] == tag:
-                responses = tg['responses']
+            audio = r.listen(source)
 
-        print(random.choice(responses))
+            try:     
+                text = r.recognize_google(audio)
+                #print('You said:' + text)
+                if text.lower() == 'quit':
+                    break
+                
+                result = model.predict([bag_of_words(text, words)])[0]
+                result_index = np.argmax(result)
+
+                tag = labels[result_index]
+
+                for tg in data['vocabs']:
+                    if tg['tag'] == tag:
+                        responses = tg['responses']
+
+                print(random.choice(responses))
+
+            except:
+                print('...')
 
 chat()
 
-'''
-SAVE CONTENT OF words = [], labels = [], training = [], output = [] IN A JOBLIB FILE
-'''
+
+
+
+
+
+    
+
+
+
+
+
 

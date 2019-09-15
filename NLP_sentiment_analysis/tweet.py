@@ -12,10 +12,13 @@ class TwitterClient(object):
         Class constructor or initialization method. 
         '''
         # keys and tokens from the Twitter Dev Console 
+        #GHAFF'S API
+        '''
         consumer_key = 'is8y1DhvZ7g8YkJiFEWRXuDuj'
         consumer_secret = 'uJTK88bniYVHkJREird8EL5rf9H49TCiaaiondaHUtpufkc0IO'
         access_token = '300952203-10hXA2JQAQmGG72aJeydQGggMz4PuLRF1HkyCiQK'
         access_token_secret = 'd8Cej41RkQU6EXjzgGwBJVTsvY0z2HlAA5HjJ3GxaM6Z8'
+        '''
   
         # attempt authentication 
         try: 
